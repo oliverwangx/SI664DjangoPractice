@@ -6,6 +6,8 @@
 {% if user.is_authenticated %}
     <ul>
     <li><a href="/autos">Autos CRUD</a>
+    <li><a href="/cats">Cats CRUD</a>
+    <li><a href="/boats">Boats CRUD</a>
     </ul>
      <li>User: {{ user.get_username }}</li>
      <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>

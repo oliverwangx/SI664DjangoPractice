@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'home.apps.HomeConfig',    #  Add this
     'autos.apps.AutosConfig',
+    'cats.apps.CatsConfig',
+    'boats.apps.BoatsConfig',
 ]
 
 MIDDLEWARE = [

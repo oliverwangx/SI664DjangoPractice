@@ -1,0 +1,30 @@
+{% extends "base_bootstrap.html" %}
+
+{% block content %}
+  <h1>Boat List</h1>
+  {% if boat_list %}
+  <ul>
+    {% for boat in boat_list %}
+      <li>
+          {{ boat.nickname }} ({{ boat.type }})
+          (<a href="{% url 'boats:boat_update' boat.id %}">Update</a> |
+          <a href="{% url 'boats:boat_delete' boat.id %}">Delete</a>) <br/>
+          {{ boat.comments }} ({{ boat.mileage }} miles)
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no boats in the library.</p>
+  {% endif %}
+  <p>
+    {% if type_count > 0 %}
+      <a href="{% url 'boats:boat_create' %}">Add a boat</a>
+    {% else %}
+      Please add a type before you add an boat.
+    {% endif %}
+  </p>
+  <p>
+  <a href="{% url 'boats:type_list' %}">View types</a> ({{ type_count }}) | 
+    <a href="{% url 'boats:type_create' %}">Add a type</a>
+  </p>
+{% endblock %}
