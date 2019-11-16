@@ -1,0 +1,46 @@
+{% extends "ads/base_menu.html" %}
+{% load crispy_forms_tags %}
+{% load humanize %} <!-- https://docs.djangoproject.com/en/2.1/ref/contrib/humanize -->
+{% block content %}
+<span style="float: right;">
+({{ ad.updated_at|naturaltime }})
+{% if ad.owner == user %}
+<a href="{% url 'ads:ad_update' ad.id %}"><i class="fa fa-pencil"></i></a>
+<a href="{% url 'ads:ad_delete' ad.id %}"><i class="fa fa-trash"></i></a>
+{% endif %}
+</span>
+<h1>{{ ad.title }}</h1>
+{% if ad.content_type %}
+<img style="float:right; max-width:50%;" src="{% url 'ads:ad_picture' ad.id %}">
+{% endif %}
+<p>
+{{ ad.text }}
+</p>
+<p>
+{{ ad.price }}
+</p>
+<p>
+
+</p>
+
+
+{% if user.is_authenticated %}
+<br clear="all"/>
+<p>
+<form method="post" action="{% url 'ads:ad_comment_create' ad.id %}">
+    {% csrf_token %}
+    {{ comment_form|crispy }}
+<input type="submit" value="Submit">
+<input type="submit" value="All Ads" onclick="window.location.href='{% url 'ads:all' %}';return false;">
+</form>
+</p>
+{% endif %}
+{% for comment in comments %}
+<p> {{ comment.text }}
+({{ comment.updated_at|naturaltime }})
+{% if user == comment.owner %}
+<a href="{% url 'ads:ad_comment_delete' comment.id %}"><i class="fa fa-trash"></i></a>
+{% endif %}
+</p>
+{% endfor %}
+{% endblock %}
